@@ -94,7 +94,7 @@ function Dashboard() {
   // Fetching total sales amount
   const fetchTotalSaleAmount = () => {
     fetch(
-      `https://despro2-inventory.onrender.com/api/sales/get/${authContext.user}/totalsaleamount`
+      `https://cec2-backend.onrender.com/api/sales/get/${authContext.user}/totalsaleamount`
     )
       .then((response) => response.json())
       .then((datas) => setSaleAmount(datas.totalSaleAmount));
@@ -103,7 +103,7 @@ function Dashboard() {
   // Fetching total purchase amount
   const fetchTotalPurchaseAmount = () => {
     fetch(
-      `https://despro2-inventory.onrender.com/api/purchase/get/${authContext.user}/totalpurchaseamount`
+      `https://cec2-backend.onrender.com/api/purchase/get/${authContext.user}/totalpurchaseamount`
     )
       .then((response) => response.json())
       .then((datas) => setPurchaseAmount(datas.totalPurchaseAmount));
@@ -111,14 +111,14 @@ function Dashboard() {
 
   // Fetching all stores data
   const fetchStoresData = () => {
-    fetch(`https://despro2-inventory.onrender.com/api/store/get/${authContext.user}`)
+    fetch(`https://cec2-backend.onrender.com/api/store/get/${authContext.user}`)
       .then((response) => response.json())
       .then((datas) => setStores(datas));
   };
 
   // Fetching Data of All Products
   const fetchProductsData = () => {
-    fetch(`https://despro2-inventory.onrender.com/api/product/get/${authContext.user}`)
+    fetch(`https://cec2-backend.onrender.com/api/product/get/${authContext.user}`)
       .then((response) => response.json())
       .then((datas) => setProducts(datas))
       .catch((err) => console.log(err));
@@ -126,7 +126,7 @@ function Dashboard() {
 
   // Fetching Monthly Sales
   const fetchMonthlySalesData = () => {
-    fetch(`https://despro2-inventory.onrender.com/api/sales/getmonthly`)
+    fetch(`https://cec2-backend.onrender.com/api/sales/getmonthly`)
       .then((response) => response.json())
       .then((datas) => updateChartData(datas.salesAmount))
       .catch((err) => console.log(err));
