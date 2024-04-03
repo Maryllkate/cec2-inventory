@@ -113,7 +113,7 @@ function Inventory() {
             </div>
             <div className="flex flex-col gap-3 p-10   w-full  md:w-3/12 sm:border-y-2  md:border-x-2 md:border-y-0">
               <span className="font-semibold text-yellow-600 text-base">
-                Stores
+                Warehouse
               </span>
               <div className="flex gap-8">
                 <div className="flex flex-col">
