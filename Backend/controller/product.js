@@ -11,6 +11,7 @@ const addProduct = (req, res) => {
     manufacturer: req.body.manufacturer,
     stock: 0,
     description: req.body.description,
+    image: req.body.productImage
   });
 
   addProduct
@@ -55,6 +56,7 @@ const updateSelectedProduct = async (req, res) => {
         name: req.body.name,
         manufacturer: req.body.manufacturer,
         description: req.body.description,
+        image: req.body.productImage
       },
       { new: true }
     );
