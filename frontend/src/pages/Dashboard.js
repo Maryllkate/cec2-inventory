@@ -9,7 +9,7 @@ export const data = {
   labels: ["Apple", "Knorr", "Shoop", "Green", "Purple", "Orange"],
   datasets: [
     {
-      label: "# of Votes",
+      label: "Nos of Votes",
       data: [0, 1, 5, 8, 9, 15],
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
@@ -262,7 +262,7 @@ function Dashboard() {
 
           <div>
             <strong className="block text-sm font-medium text-gray-500">
-              Total Stores
+              Total Warehouse
             </strong>
 
             <p>

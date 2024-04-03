@@ -17,6 +17,7 @@ export default function AddProduct({
     productImage: "",
   });
   const [open, setOpen] = useState(true);
+  const [imageUploaded, setImageUploaded] = useState(false);
   const cancelButtonRef = useRef(null);
 
   const handleInputChange = (key, value) => {
@@ -36,6 +37,7 @@ export default function AddProduct({
       });
       const responseData = await response.json();
       setProduct({ ...product, productImage: responseData.url });
+      setImageUploaded(true);
       alert("Image Successfully Uploaded");
     } catch (error) {
       console.log(error);
@@ -146,7 +148,7 @@ export default function AddProduct({
                               placeholder="Ex. Apple"
                             />
                           </div>
-                          {/* <div>
+                          <div>
                             <label
                               for="price"
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -183,7 +185,7 @@ export default function AddProduct({
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               placeholder="0 - 999"
                             />
-                          </div> */}
+                          </div>
 
                           <div className="sm:col-span-2">
                             <label
@@ -221,8 +223,9 @@ export default function AddProduct({
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                    className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${!imageUploaded && 'opacity-50 cursor-not-allowed'}`}
                     onClick={addProduct}
+                    disabled={!imageUploaded} // Disable button if image is not uploaded
                   >
                     Add Product
                   </button>
