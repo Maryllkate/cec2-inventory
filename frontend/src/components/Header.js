@@ -37,8 +37,8 @@ export default function Header() {
                           src={require("../assets/logo.png")}
                           alt="Inventory Management System"
                         />
-                        <span className="font-bold text-white italic">
-                          3D INVENTORY SYSTEM
+                        <span className="font-bold text-white">
+                          SYSTEMATICALLY SPARE PARTS INVENTORY SYSTEM
                         </span>
                       </div>
                     </div>
