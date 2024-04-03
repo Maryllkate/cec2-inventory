@@ -40,7 +40,7 @@ function Register() {
   // Uploading image to cloudinary
   const uploadImage = async (image) => {
     const data = new FormData();
-    //data.append("file", image);
+    data.append("file", image);
     data.append("upload_preset", "k2tbbpqg")
 
     await fetch("https://api.cloudinary.com/v1_1/dmbpungbx/image/upload", {
