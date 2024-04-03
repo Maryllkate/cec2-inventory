@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
 import AuthContext from "../AuthContext";
-import ImageViewModal from "../components/imageView";
+import ImageViewModal from "../components/productView";
 
 function Inventory() {
   const [showProductModal, setShowProductModal] = useState(false);
@@ -66,12 +66,11 @@ function Inventory() {
     setShowUpdateModal(!showUpdateModal);
   };
 
-  // //View item
-  // const viewItem = (product) => {
-  //   setSelectedProduct(product);
-  //   setShowImageViewModal(true);
-    
-  // };
+  //View item
+  const viewItem = (product) => {
+    setSelectedProduct(product);
+    setShowImageViewModal(true);
+  };
 
   // Delete item
   const deleteItem = (id) => {
@@ -282,19 +281,18 @@ function Inventory() {
                       >
                         Edit{" "}
                       </span>
-                      {/* <span
+                      <span
                         className="text-blue-600 px-2 cursor-pointer"
                         onClick={() => viewItem(element)}
                       >
                         View
-                      </span> */}
+                      </span>
                       <span
                         className="text-red-600 px-2 cursor-pointer"
                         onClick={() => deleteItem(element._id)}
                       >
                         Delete
                       </span>
-                      <img src={element.productImage} alt={element.name} className="max-w-full h-auto" />
                     </td>
                   </tr>
                 );
