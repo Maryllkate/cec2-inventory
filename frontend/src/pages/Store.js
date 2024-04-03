@@ -34,12 +34,12 @@ function Store() {
     <div className="col-span-12 lg:col-span-10 flex justify-center">
       <div className="flex flex-col gap-5 w-11/12 border-2">
         <div className="flex justify-between">
-          <span className="font-bold">Manage Store</span>
+          <span className="font-bold">Manage Warehouse</span>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-xs rounded"
             onClick={modalSetting}
           >
-            Add Store
+            Add Warehouse
           </button>
         </div>
         {showModal && <AddStore onStoreAdded={handleStoreAdded} />}
