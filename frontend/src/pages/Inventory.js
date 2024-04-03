@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
 import AuthContext from "../AuthContext";
+import ImageViewModal from "../components/imageView";
 
 function Inventory() {
   const [showProductModal, setShowProductModal] = useState(false);
@@ -11,6 +12,8 @@ function Inventory() {
   const [searchTerm, setSearchTerm] = useState();
   const [updatePage, setUpdatePage] = useState(true);
   const [stores, setAllStores] = useState([]);
+  const [showImageViewModal, setShowImageViewModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const authContext = useContext(AuthContext);
   console.log('====================================');
@@ -63,6 +66,12 @@ function Inventory() {
     setShowUpdateModal(!showUpdateModal);
   };
 
+  // //View item
+  // const viewItem = (product) => {
+  //   setSelectedProduct(product);
+  //   setShowImageViewModal(true);
+    
+  // };
 
   // Delete item
   const deleteItem = (id) => {
@@ -186,6 +195,13 @@ function Inventory() {
           />
         )}
 
+        {showImageViewModal && (
+          <ImageViewModal
+            product={selectedProduct}
+            onClose={() => setShowImageViewModal(false)}
+          />
+        )}
+
         {/* Table  */}
         <div className="overflow-x-auto rounded-lg border bg-white border-gray-200 ">
           <div className="flex justify-between pt-5 pb-3 px-3">
@@ -266,12 +282,19 @@ function Inventory() {
                       >
                         Edit{" "}
                       </span>
+                      {/* <span
+                        className="text-blue-600 px-2 cursor-pointer"
+                        onClick={() => viewItem(element)}
+                      >
+                        View
+                      </span> */}
                       <span
                         className="text-red-600 px-2 cursor-pointer"
                         onClick={() => deleteItem(element._id)}
                       >
                         Delete
                       </span>
+                      <img src={element.productImage} alt={element.name} className="max-w-full h-auto" />
                     </td>
                   </tr>
                 );
