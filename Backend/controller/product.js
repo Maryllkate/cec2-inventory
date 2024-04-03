@@ -11,7 +11,7 @@ const addProduct = (req, res) => {
     manufacturer: req.body.manufacturer,
     stock: 0,
     description: req.body.description,
-    image: req.body.productImage
+    productImage: req.body.productImage,
   });
 
   addProduct
@@ -51,12 +51,12 @@ const deleteSelectedProduct = async (req, res) => {
 const updateSelectedProduct = async (req, res) => {
   try {
     const updatedResult = await Product.findByIdAndUpdate(
-      { _id: req.body.productID },
+      { _id: req.body.userId },
       {
         name: req.body.name,
         manufacturer: req.body.manufacturer,
         description: req.body.description,
-        image: req.body.productImage
+        productImage: req.body.productImage
       },
       { new: true }
     );
