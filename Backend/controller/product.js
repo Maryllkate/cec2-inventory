@@ -56,7 +56,7 @@ const updateSelectedProduct = async (req, res) => {
         name: req.body.name,
         manufacturer: req.body.manufacturer,
         description: req.body.description,
-        productImage: req.body.productImage
+        productImage: req.body.productImage,
       },
       { new: true }
     );
@@ -64,7 +64,7 @@ const updateSelectedProduct = async (req, res) => {
     res.json(updatedResult);
   } catch (error) {
     console.log(error);
-    res.status(402).send("Error");
+    res.status(402).send(error);
   }
 };
 

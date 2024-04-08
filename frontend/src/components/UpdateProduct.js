@@ -1,26 +1,50 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import UploadImage from "../components/UploadImage";
 
-export default function UpdateProduct({
-  updateProductData,
-  updateModalSetting,
-}) {
-  const { _id, name, manufacturer, description } = updateProductData;
+export default function UpdateProduct({ updateProductData, updateModalSetting }) {
+  // Destructuring properties from updateProductData
+  const { _id, name, manufacturer, description, productImage } = updateProductData;
+  
+  // Initializing state variables
   const [product, setProduct] = useState({
     productID: _id,
     name: name,
     manufacturer: manufacturer,
     description: description,
+    productImage: productImage,
   });
   const [open, setOpen] = useState(true);
+  const [imageUploaded, setImageUploaded] = useState(false);
   const cancelButtonRef = useRef(null);
 
+  // Function to handle input changes
   const handleInputChange = (key, value) => {
-    console.log(key);
     setProduct({ ...product, [key]: value });
   };
 
+  // Function to upload image to Cloudinary
+  const uploadImage = async (image) => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "k2tbbpqg");
+
+    try {
+      const response = await fetch("https://api.cloudinary.com/v1_1/dmbpungbx/image/upload", {
+        method: "POST",
+        body: data,
+      });
+      const responseData = await response.json();
+      setProduct(prevProduct => ({ ...prevProduct, productImage: responseData.url }));
+      setImageUploaded(true);
+      alert("Image Successfully Uploaded");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Function to update product
   const updateProduct = () => {
     fetch("https://cec2-backend.onrender.com/api/product/update", {
       method: "POST",
@@ -37,7 +61,6 @@ export default function UpdateProduct({
   };
 
   return (
-    // Modal
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
@@ -45,6 +68,7 @@ export default function UpdateProduct({
         initialFocus={cancelButtonRef}
         onClose={setOpen}
       >
+        {/* Overlay */}
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -57,6 +81,7 @@ export default function UpdateProduct({
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
+        {/* Modal Content */}
         <div className="fixed inset-0 z-10 overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
@@ -69,6 +94,7 @@ export default function UpdateProduct({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                {/* Modal Header */}
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -84,8 +110,10 @@ export default function UpdateProduct({
                       >
                         Update Product
                       </Dialog.Title>
+                      {/* Form */}
                       <form action="#">
                         <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                          {/* Name Input */}
                           <div>
                             <label
                               htmlFor="name"
@@ -105,6 +133,7 @@ export default function UpdateProduct({
                               placeholder="Ex. Apple iMac 27&ldquo;"
                             />
                           </div>
+                          {/* Manufacturer Input */}
                           <div>
                             <label
                               htmlFor="manufacturer"
@@ -124,6 +153,7 @@ export default function UpdateProduct({
                               placeholder="Ex. Apple"
                             />
                           </div>
+                          {/* Description Textarea */}
                           <div className="sm:col-span-2">
                             <label
                               htmlFor="description"
@@ -141,53 +171,29 @@ export default function UpdateProduct({
                               onChange={(e) =>
                                 handleInputChange(e.target.name, e.target.value)
                               }
-                            >
-                              Standard glass, 3.8GHz 8-core 10th-generation
-                              Intel Core i7 processor, Turbo Boost up to 5.0GHz,
-                              16GB 2666MHz DDR4 memory, Radeon Pro 5500 XT with
-                              8GB of GDDR6 memory, 256GB SSD storage, Gigabit
-                              Ethernet, Magic Mouse 2, Magic Keyboard - US
-                            </textarea>
+                            />
                           </div>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                          <button
-                            type="submit"
-                            className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                          >
-                            Update product
-                          </button>
-                          {/* <button
-                            type="button"
-                            className="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                          >
-                            <svg
-                              className="mr-1 -ml-1 w-5 h-5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                clip-rule="evenodd"
-                              ></path>
-                            </svg>
-                            Delete
-                          </button> */}
+                          {/* Upload Image Component */}
+                          <div className="flex items-center space-x-4">
+                            <UploadImage uploadImage={uploadImage} />
+                          </div>
                         </div>
                       </form>
                     </div>
                   </div>
                 </div>
+                {/* Modal Footer */}
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  {/* Update Button */}
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                    className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${!imageUploaded ? 'opacity-50 cursor-not-allowed' : ''}`}
                     onClick={updateProduct}
+                    disabled={!imageUploaded}
                   >
                     Update Product
                   </button>
+                  {/* Cancel Button */}
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
