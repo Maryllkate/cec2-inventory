@@ -6,11 +6,11 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 export const data = {
-  labels: ["Apple", "Knorr", "Shoop", "Green", "Purple", "Orange"],
+  labels: ["Metals", "Gears", "Aluminum", "Screws", "Consumables", "Electronics"],
   datasets: [
     {
       label: "Nos of Votes",
-      data: [0, 1, 5, 8, 9, 15],
+      data: [10, 1, 5, 8, 9, 4],
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
         "rgba(54, 162, 235, 0.2)",
@@ -165,7 +165,7 @@ function Dashboard() {
                ₱{saleAmount}
               </span>
 
-              <span className="text-xs text-gray-500"> from ₱240.94 </span>
+              <span className="text-xs text-gray-500"> from ₱2,345,678.40 </span>
             </p>
           </div>
         </article>
@@ -201,7 +201,7 @@ function Dashboard() {
                 ₱{purchaseAmount}{" "}
               </span>
 
-              <span className="text-xs text-gray-500"> from ₱404.32 </span>
+              <span className="text-xs text-gray-500"> from ₱1,234,567.04</span>
             </p>
           </div>
         </article>

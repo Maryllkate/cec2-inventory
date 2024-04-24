@@ -67,9 +67,10 @@ function Inventory() {
   };
 
   //View item
-  const viewItem = (product) => {
+  const viewItem = async (product) => {
     setSelectedProduct(product);
     setShowImageViewModal(true);
+
   };
 
   // Delete item

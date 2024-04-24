@@ -59,7 +59,7 @@ function SideMenu() {
                     alt="store-icon"
                     src={require("../assets/order-icon.png")}
                   />
-                  <span className="text-sm font-medium"> Manage Store </span>
+                  <span className="text-sm font-medium"> Manage Warehouse </span>
                 </div>
               </Link>
             </summary>
