@@ -143,7 +143,7 @@ export default function AddSale({
                               htmlFor="storeID"
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                              Store Name
+                              Warehouse Name
                             </label>
                             <select
                               id="storeID"
@@ -153,7 +153,7 @@ export default function AddSale({
                                 handleInputChange(e.target.name, e.target.value)
                               }
                             >
-                              <option selected="">Select Store</option>
+                              <option selected="">Select Warehouse</option>
                               {stores.map((element, index) => {
                                 return (
                                   <option key={element._id} value={element._id}>

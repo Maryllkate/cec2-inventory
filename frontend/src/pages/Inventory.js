@@ -14,6 +14,7 @@ function Inventory() {
   const [stores, setAllStores] = useState([]);
   const [showImageViewModal, setShowImageViewModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [totalNotInStock, setTotalNotInStock] = useState(0); // Added state for total not in stock
 
   const authContext = useContext(AuthContext);
   console.log('====================================');
@@ -24,6 +25,18 @@ function Inventory() {
     fetchProductsData();
     fetchSalesData();
   }, [updatePage]);
+
+  useEffect(() => {
+    // Calculate total not in stock when products change
+    const notInStockCount = products.reduce((total, product) => {
+      if (product.stock <= 0) {
+        return total + 1;
+      } else {
+        return total;
+      }
+    }, 0);
+    setTotalNotInStock(notInStockCount);
+  }, [products]);
 
   // Fetching Data of All Products
   const fetchProductsData = () => {
@@ -127,7 +140,7 @@ function Inventory() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-semibold text-gray-600 text-base">
-                  ₱2000
+                  ₱45,670
                   </span>
                   <span className="font-thin text-gray-400 text-xs">
                     Revenue
@@ -150,7 +163,7 @@ function Inventory() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-semibold text-gray-600 text-base">
-                  ₱1500
+                  ₱4,999
                   </span>
                   <span className="font-thin text-gray-400 text-xs">Cost</span>
                 </div>
@@ -163,15 +176,7 @@ function Inventory() {
               <div className="flex gap-8">
                 <div className="flex flex-col">
                   <span className="font-semibold text-gray-600 text-base">
-                    12
-                  </span>
-                  <span className="font-thin text-gray-400 text-xs">
-                    Ordered
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-600 text-base">
-                    2
+                    {totalNotInStock}
                   </span>
                   <span className="font-thin text-gray-400 text-xs">
                     Not in Stock
@@ -248,7 +253,7 @@ function Inventory() {
                   Description
                 </th>
                 <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
-                  Availibility
+                  Availability
                 </th>
                 <th className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900">
                   More
