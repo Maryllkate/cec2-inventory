@@ -5,7 +5,8 @@ const purchaseStock = async (productID, purchaseStockData) => {
   // Updating Purchase stock
   try {
     const myProductData = await Product.findOne({ _id: productID });
-    let myUpdatedStock = parseInt(myProductData.stock) + purchaseStockData;
+    let myUpdatedStock = myProductData.stock + purchaseStockData;
+    console.log(myUpdatedStock);
 
     const PurchaseStock = await Product.findByIdAndUpdate(
       { _id: productID },
